@@ -1,10 +1,14 @@
 import React, { createContext, useState, ReactNode, FC, useEffect } from 'react';
-import { IpropsHomeData } from '../utils/enums';
+import { IpropsHomeData } from '../utils/types/enums';
 
 
 interface AppContextProps {
-  data:IpropsHomeData[];
-  setData: React.Dispatch<React.SetStateAction<IpropsHomeData[]>>
+  data: IpropsHomeData[];
+  setData: React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
+  detailData: IpropsHomeData | null;
+  setDetailData: React.Dispatch<React.SetStateAction<IpropsHomeData | null>>;
+  loading:boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const AppContext = createContext<AppContextProps | null>(null);
@@ -15,8 +19,8 @@ interface GlobalContextProps {
 
 const GlobalContext:FC<GlobalContextProps>  = ({children}) => {
   const [data, setData] = useState<IpropsHomeData[]>([]);
-
-
+  const [detailData, setDetailData] = useState<IpropsHomeData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const homeFectch = async()=>{
@@ -35,7 +39,7 @@ const GlobalContext:FC<GlobalContextProps>  = ({children}) => {
  
 
   return (
-    <AppContext.Provider value={{data , setData}}>
+    <AppContext.Provider value={{data , setData, detailData , setDetailData , loading , setLoading}}>
       {children}
     </AppContext.Provider>
   )
