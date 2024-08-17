@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { AppContext } from '../../context/GlobalContext';
-import { detailsFectch } from '../../utils/api/api';
+import React, { useContext, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { AppContext } from "../../context/GlobalContext";
+import { detailsFectch } from "../../utils/api/api";
 
 const Details: React.FC = () => {
   const detailContext = useContext(AppContext);
   if (detailContext === null) {
-    throw new Error('useContext must be used within a AppProvider');
+    throw new Error("useContext must be used within a AppProvider");
   }
   const { detailData, setDetailData, loading, setLoading } = detailContext;
 
@@ -14,10 +14,10 @@ const Details: React.FC = () => {
 
   useEffect(() => {
     const fetchDetails = async () => {
-      setLoading(true); 
+      setLoading(true);
       const data = await detailsFectch(Number(id));
       setDetailData(data);
-      setLoading(false); 
+      setLoading(false);
     };
 
     fetchDetails();
@@ -26,6 +26,7 @@ const Details: React.FC = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
+
 
   return (
     <div className="p-6">
@@ -43,7 +44,10 @@ const Details: React.FC = () => {
             <p className="text-gray-700 mb-4">{detailData.description}</p>
             <p className="text-2xl font-bold mb-6">${detailData.price}</p>
 
-            <button className="cr-button mb-3 w-full h-[50px] font-bold transition-all duration-[0.3s] ease-in-out py-[8px] px-[22px] text-[14px] font-Manrope capitalize leading-[1.2] bg-[#64b496] text-[#fff] border-[1px] border-solid border-[#64b496] rounded-[5px] flex items-center justify-center hover:bg-[#000] hover:border-[#000]">
+            <button
+              
+              className="cr-button mb-3 w-full h-[50px] font-bold transition-all duration-[0.3s] ease-in-out py-[8px] px-[22px] text-[14px] font-Manrope capitalize leading-[1.2] bg-[#64b496] text-[#fff] border-[1px] border-solid border-[#64b496] rounded-[5px] flex items-center justify-center hover:bg-[#000] hover:border-[#000]"
+            >
               ADD TO CART
             </button>
 
