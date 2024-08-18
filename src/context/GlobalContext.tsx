@@ -17,6 +17,10 @@ interface AppContextProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   toggleDrawer: () => void;
+  handleAddToCart: (products: IpropsHomeData) => void;
+  addCartList: IpropsHomeData[];
+  setaddCartList: React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
+  CartTotalPrice: any;
 }
 
 export const AppContext = createContext<AppContextProps | null>(null);
@@ -30,6 +34,9 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
   const [detailData, setDetailData] = useState<IpropsHomeData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const [addCartList, setaddCartList] = useState<IpropsHomeData[]>([]);
+
   useEffect(() => {
     const homeFectch = async () => {
       try {
@@ -47,6 +54,15 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
     setIsOpen(!isOpen);
   };
 
+  const handleAddToCart = (product: IpropsHomeData) => {
+    console.log("its here ", product);
+    setaddCartList((prev) => [...prev, product]);
+  };
+
+  const CartTotalPrice = () => {
+    return addCartList.reduce((acc, cartTotal) => acc + cartTotal.price, 0).toFixed(2);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -59,6 +75,10 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
         isOpen,
         setIsOpen,
         toggleDrawer,
+        handleAddToCart,
+        addCartList,
+        setaddCartList,
+        CartTotalPrice,
       }}
     >
       {children}

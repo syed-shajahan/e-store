@@ -13,7 +13,7 @@ const Header: React.FC = () => {
 
   return (
     <header className="bg-white shadow-md p-4">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="container mx-auto flex flex-wrap lg:flex-nowrap gap-3 lg:gap-0 justify-between items-center">
         {/* Logo or Title */}
         <div className="text-2xl font-bold text-blue-600">E-Store</div>
 
