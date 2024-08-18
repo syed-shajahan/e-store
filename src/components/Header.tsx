@@ -9,7 +9,7 @@ const Header: React.FC = () => {
     throw new Error("useContext must be used within a AppProvider");
   }
 
-  const { isOpen, toggleDrawer } = HeaderContext;
+  const { isOpen, toggleDrawer, addCartList } = HeaderContext;
 
   return (
     <header className="bg-white shadow-md p-4">
@@ -36,7 +36,7 @@ const Header: React.FC = () => {
             size={28}
             className="text-gray-700 hover:text-blue-500 cursor-pointer"
           />
-          <span className="text-gray-700 font-medium">Cart</span>
+          <span className="text-gray-700 font-medium">Cart {addCartList.length}</span>
         </div>
       </div>
 
