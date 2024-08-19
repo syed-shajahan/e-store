@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../context/GlobalContext";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 const Modal = () => {
   const modalContext = useContext(AppContext);
@@ -20,7 +21,11 @@ const Modal = () => {
         <div className="p-4">
           {addCartList.length > 0 ? (
             <>
-              <h2 className="text-xl font-bold">Your Add to cart Products</h2>
+            
+              <div className="mb-3  flex justify-between items-center">
+              <h2 className="text-xl font-bold">Your cart Products</h2>
+                <IoIosCloseCircleOutline size={'30px'} className="cursor-pointer text-[#ccc] hover:text-[#000]" />
+              </div>
               <ul className="mt-4 space-y-2">
                 <li>
                   {addCartList?.map((cartData) => {
