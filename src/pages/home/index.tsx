@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../context/GlobalContext";
 import { IoMdHeart } from "react-icons/io";
-import { IpropsHomeData } from "../../utils/types/interface";
 import { HOME_TITLES } from "../../utils/types/enums";
 
 const Home = () => {
@@ -9,7 +8,7 @@ const Home = () => {
   if (homeContext === null) {
     throw new Error("useContext must be used within a AppProvider");
   }
-  const { data, handleAddToCart } = homeContext;
+  const { handleAddToCart, searchfilterData } = homeContext;
 
   const handleHeartClick = (event: React.MouseEvent<SVGElement>) => {
     event.stopPropagation(); //
@@ -19,7 +18,7 @@ const Home = () => {
     <>
       <div className="p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {data?.map((products) => {
+          {searchfilterData?.map((products:any) => {
             return (
               <div className="bg-white shadow-md rounded-lg overflow-hidden  p-4">
                 <a href={`/details/${products.id}`} className="relative">

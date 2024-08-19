@@ -5,13 +5,16 @@ import Details from "./pages/detail/Details";
 import Home from "./pages/home";
 import Header from "./components/Header";
 import Modal from "./components/Modal";
+import Aside from "./components/Aside";
 
 function App() {
   return (
     <>
       <div className="w-full max-w-[1750px] m-auto">
         <Header />
-        <Modal />
+        <Modal>
+          <Aside />
+        </Modal>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/details/:id" element={<Details />} />

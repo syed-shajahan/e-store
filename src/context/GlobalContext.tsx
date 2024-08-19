@@ -22,6 +22,8 @@ interface AppContextProps {
   setaddCartList: React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
   CartTotalPrice: any;
   DeleteCartItem: (id:number)=>void;
+  searchfilterData: any;
+  searchSetFilterData: React.Dispatch<any>
 }
 
 export const AppContext = createContext<AppContextProps | null>(null);
@@ -37,6 +39,8 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const [addCartList, setaddCartList] = useState<IpropsHomeData[]>([]);
+
+  const [searchfilterData , searchSetFilterData] = useState<any>([])
 
   useEffect(() => {
     const homeFectch = async () => {
@@ -86,7 +90,9 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
         addCartList,
         setaddCartList,
         CartTotalPrice,
-        DeleteCartItem
+        DeleteCartItem,
+        searchfilterData,
+        searchSetFilterData
       }}
     >
       {children}
