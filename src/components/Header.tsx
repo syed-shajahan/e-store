@@ -1,6 +1,10 @@
 import React, { useContext } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { AppContext } from "../context/GlobalContext";
+import { FaHeart } from "react-icons/fa";
+import { HOME_TITLES } from "../utils/types/enums";
+import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 const Header: React.FC = () => {
   const HeaderContext = useContext(AppContext);
@@ -12,21 +16,17 @@ const Header: React.FC = () => {
   const { isOpen, toggleDrawer, addCartList } = HeaderContext;
 
   return (
-    <header className="bg-white shadow-md p-4">
+    <header className="bg-white lg:py-4 lg:px-4 px-7 py-4  sticky top-0 z-50">
       <div className="container mx-auto flex flex-wrap lg:flex-nowrap gap-3 lg:gap-0 justify-between items-center">
         {/* Logo or Title */}
-        <div className="text-2xl font-bold text-blue-600">E-Store</div>
+
+        <Link to="/">
+          <div className="text-2xl font-bold text-[#2C3749]">{HOME_TITLES.E_STORE}</div>
+        </Link>
 
         {/* Search Bar */}
-        <div className="flex items-center w-full max-w-md">
-          <input
-            type="text"
-            placeholder="Search products..."
-            className="w-full p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button className="bg-blue-500 text-white p-2 rounded-r-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            Search
-          </button>
+        <div className=" w-full max-w-[600px] m-auto order-[10] lg:order-0">
+          <SearchBar />
         </div>
 
         {/* Cart Icon */}
@@ -38,6 +38,7 @@ const Header: React.FC = () => {
           />
           <span className="text-gray-700 font-medium">Cart {addCartList.length}</span>
         </div>
+
       </div>
 
       {/* Drawer Overlay */}

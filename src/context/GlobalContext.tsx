@@ -5,7 +5,7 @@ import React, {
   FC,
   useEffect,
 } from "react";
-import { IpropsHomeData } from "../utils/types/enums";
+import { IpropsHomeData } from "../utils/types/interface";
 
 interface AppContextProps {
   data: IpropsHomeData[];
@@ -21,6 +21,9 @@ interface AppContextProps {
   addCartList: IpropsHomeData[];
   setaddCartList: React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
   CartTotalPrice: any;
+  DeleteCartItem: (id:number)=>void;
+  searchfilterData: any;
+  searchSetFilterData: React.Dispatch<any>
 }
 
 export const AppContext = createContext<AppContextProps | null>(null);
@@ -36,6 +39,8 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const [addCartList, setaddCartList] = useState<IpropsHomeData[]>([]);
+
+  const [searchfilterData , searchSetFilterData] = useState<any>([])
 
   useEffect(() => {
     const homeFectch = async () => {
@@ -63,6 +68,12 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
     return addCartList.reduce((acc, cartTotal) => acc + cartTotal.price, 0).toFixed(2);
   };
 
+  const DeleteCartItem =(id:number)=>{
+     const updatedCardList = addCartList.filter((listData)=> listData.id !== id);
+     setaddCartList(updatedCardList)
+
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -79,6 +90,9 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
         addCartList,
         setaddCartList,
         CartTotalPrice,
+        DeleteCartItem,
+        searchfilterData,
+        searchSetFilterData
       }}
     >
       {children}

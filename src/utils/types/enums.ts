@@ -1,17 +1,11 @@
 
-  export interface IpropsHomeData {
-    id: number;
-    title: string;
-    price: number;
-    description: string;
-    category: string;
-    image: string;
-    rating: Rating;
-  }
+export enum HOME_TITLES {
+    E_STORE ='E-Store',
+    ADD_TO_CART='Add To Cart'
+}
 
-  
-interface Rating {
-    rate: number;
-    count: number;
-  }
-  
+export enum MODAL_TITLES {
+    TOTAL='Total:' ,
+    PLS_ADD_PRODUCTS = 'Your Cart is Empty Please Add some Products',
+    YOUR_CART_PRODUCTS ='Your cart Products'
+}
