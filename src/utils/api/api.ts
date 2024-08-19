@@ -1,4 +1,4 @@
-import { IpropsHomeData } from "../types/enums";
+import { IpropsHomeData } from "../types/interface";
 
 // src/utils/api/api.ts
 export const detailsFectch = async (id: number | string): Promise<IpropsHomeData | null> => {

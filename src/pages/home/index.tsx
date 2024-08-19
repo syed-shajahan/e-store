@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../context/GlobalContext";
 import { IoMdHeart } from "react-icons/io";
-import { IpropsHomeData } from "../../utils/types/enums";
+import { IpropsHomeData } from "../../utils/types/interface";
+import { HOME_TITLES } from "../../utils/types/enums";
 
 const Home = () => {
   const homeContext = useContext(AppContext);
@@ -35,7 +36,7 @@ const Home = () => {
                   </div>
                 </a>
 
-                <div className="mb-3">
+                <div className="mb-5">
                   <h2 className="text-lg font-semibold truncate">
                     {products.title}
                   </h2>
@@ -50,9 +51,9 @@ const Home = () => {
 
                 <button
                   onClick={() => handleAddToCart(products)}
-                  className="cr-button w-full h-[50px] font-bold transition-all duration-[0.3s] ease-in-out py-[8px] px-[22px] text-[14px] font-Manrope capitalize leading-[1.2] bg-[#2c3749] text-[#fff] border-[1px] border-solid border-[#000] rounded-[5px] flex items-center justify-center hover:bg-[#000] hover:border-[#000]"
+                  className="rounded-[25px] cr-button w-full h-[50px] font-bold transition-all duration-[0.3s] ease-in-out py-[8px] px-[22px] text-[14px] font-Manrope leading-[1.2] bg-[#2c3749] text-[#fff] border-[1px] border-solid border-[#000] flex items-center uppercase justify-center hover:bg-[#000] hover:border-[#000]"
                 >
-                  ADD TO CART
+                 {HOME_TITLES.ADD_TO_CART}
                 </button>
               </div>
             );

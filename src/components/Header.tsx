@@ -14,24 +14,29 @@ const Header: React.FC = () => {
   const { isOpen, toggleDrawer, addCartList } = HeaderContext;
 
   return (
-    <header className="bg-white p-4 sticky top-0 z-50">
+    <header className="bg-white lg:py-4 lg:px-4 px-7 py-4  sticky top-0 z-50">
       <div className="container mx-auto flex flex-wrap lg:flex-nowrap gap-3 lg:gap-0 justify-between items-center">
         {/* Logo or Title */}
         <div className="text-2xl font-bold text-[#2C3749]">E-Store</div>
 
         {/* Search Bar */}
-        <div className="flex items-center w-full max-w-md">
+        <div className="flex items-center w-full max-w-md  order-[10] lg:order-0">
           <input
             type="text"
             placeholder="Search products..."
             className="w-full p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <button className="bg-[#2C3749] text-white p-4 h-[42px] flex items-center justify-center rounded-r-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <button className="bg-[#2C3749] text-white p-4 h-[42px] rounded-tl-none rounded-br-[25px] rounded-tr-[25px] rounded-bl-none
+ flex items-center justify-center rounded-r-md hover:bg-[#000] focus:outline-none focus:ring-2 focus:ring-blue-500">
             <IoSearch />
           </button>
         </div>
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between order-[0] lg:order-10">
+        <div className="me-4">
+            <FaHeart  className="text-[red] text-[20px] cursor-pointer" title="Your WishList"/>
+
+          </div>
           <div className="flex items-center space-x-4 relative">
             <AiOutlineShoppingCart
               onClick={toggleDrawer}
@@ -42,10 +47,7 @@ const Header: React.FC = () => {
           "> {addCartList.length}</span>
           </div>
 
-          <div className="ms-4">
-            <FaHeart  className="text-[red] text-[20px] cursor-pointer" title="Your WishList"/>
-
-          </div>
+          
         </div>
 
       </div>
