@@ -29,14 +29,22 @@ const Header: React.FC = () => {
           <SearchBar />
         </div>
 
-        {/* Cart Icon */}
-        <div className="flex items-center space-x-4">
-          <AiOutlineShoppingCart
-            onClick={toggleDrawer}
-            size={28}
-            className="text-gray-700 hover:text-blue-500 cursor-pointer"
-          />
-          <span className="text-gray-700 font-medium">Cart {addCartList.length}</span>
+        <div className="flex items-center justify-between order-[0] lg:order-10">
+          <div className="me-4">
+            <FaHeart className="text-[red] text-[20px] cursor-pointer" title="Your WishList" />
+
+          </div>
+          <div className="flex items-center space-x-4 relative">
+            <AiOutlineShoppingCart
+              onClick={toggleDrawer}
+              size={28}
+              className="text-[#2C3749] hover:text-blue-500 cursor-pointer"
+            />
+            <span className=" font-medium bg-[#E91E63] absolute text-[#fff] text-[10px]  w-[20px] h-[20px] -top-[10px] -right-[10px] flex items-center justify-center rounded-[100px]
+          "> {addCartList.length}</span>
+          </div>
+
+
         </div>
 
       </div>
