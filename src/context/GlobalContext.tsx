@@ -22,8 +22,8 @@ interface AppContextProps {
   setaddCartList: React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
   CartTotalPrice: any;
   DeleteCartItem: (id:number)=>void;
-  searchfilterData: any;
-  searchSetFilterData: React.Dispatch<any>
+  searchfilterData: IpropsHomeData[];
+  searchSetFilterData:React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
 }
 
 export const AppContext = createContext<AppContextProps | null>(null);
@@ -48,6 +48,7 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
         const response = await fetch("https://fakestoreapi.com/products");
         const data = await response.json();
         setData(data);
+        searchSetFilterData(data)
       } catch (error) {}
     };
     homeFectch();

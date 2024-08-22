@@ -18,7 +18,7 @@ const Home = () => {
     <>
       <div className="p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {searchfilterData?.map((products:any) => {
+          {searchfilterData?.map((products) => {
             return (
               <div className="bg-white shadow-md rounded-lg overflow-hidden  p-4">
                 <a href={`/details/${products.id}`} className="relative">

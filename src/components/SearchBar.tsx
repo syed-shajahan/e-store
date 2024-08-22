@@ -30,9 +30,6 @@ const SearchBar = () => {
 
     };
 
-    useEffect(() => {
-        searchSetFilterData(data);
-    }, [data])
     
     
 

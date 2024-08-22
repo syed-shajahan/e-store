@@ -1,9 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../../context/GlobalContext";
 import { detailsFectch } from "../../utils/api/api";
+import { FaPlusCircle } from "react-icons/fa";
+import { FaCircleMinus } from "react-icons/fa6";
 
 const Details: React.FC = () => {
+
   const detailContext = useContext(AppContext);
   if (detailContext === null) {
     throw new Error("useContext must be used within a AppProvider");
@@ -11,6 +14,10 @@ const Details: React.FC = () => {
   const { detailData, setDetailData, loading, setLoading } = detailContext;
 
   const { id } = useParams<{ id: string }>();
+
+  const [quantity, setQuantity] = useState<number>(0)
+
+  const [Details, setDetails] = useState([])
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -27,6 +34,18 @@ const Details: React.FC = () => {
     return <div>Loading...</div>;
   }
 
+  const handleInCrement =()=>{
+    setQuantity((prev) => prev + 1)
+  }
+
+  const handleDecrement =()=>{
+    setQuantity((prev) => Math.max(0, prev - 1));
+  }
+
+
+  // const handleDetailAddCart =()=>{
+    
+  // }
 
   return (
     <div className="p-6">
@@ -42,16 +61,22 @@ const Details: React.FC = () => {
             <h1 className="text-3xl font-bold mb-2">{detailData.title}</h1>
             <p className="text-gray-600 mb-4">{detailData.category}</p>
             <p className="text-gray-700 mb-4">{detailData.description}</p>
-            <p className="text-2xl font-bold mb-6">${detailData.price}</p>
+            <p className="text-2xl font-bold mb-6 select-none">${detailData.price * quantity }</p>
+
+
+            <div className="flex items-center gap-3 mb-3">
+              <FaCircleMinus size={30} className="cursor-pointer hover:scale-[0.90px]" onClick={handleDecrement} />  
+              <span className="text-[30px] text-[#000] select-none">{quantity}</span>
+              <FaPlusCircle size={30} className="cursor-pointer  hover:scale-[0.90px]" onClick={handleInCrement}  />
+            </div>
 
             <button
-              
-              className="cr-button mb-3 w-full h-[50px] font-bold transition-all duration-[0.3s] ease-in-out py-[8px] px-[22px] text-[14px] font-Manrope capitalize leading-[1.2] bg-[#64b496] text-[#fff] border-[1px] border-solid border-[#64b496] rounded-[5px] flex items-center justify-center hover:bg-[#000] hover:border-[#000]"
+              className="cr-button mb-3 w-full h-[50px] font-bold transition-all duration-[0.3s] ease-in-out py-[8px] px-[22px] text-[14px] font-Manrope capitalize leading-[1.2] bg-[#64b496] text-[#fff] border-[1px] border-solid border-[#64b496] rounded-[5px] flex items-center justify-center hover:bg-[#000] hover:border-[#000] select-none"
             >
               ADD TO CART
             </button>
 
-            <button className="w-full py-2 px-4 h-[50px] bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition duration-200">
+            <button className="w-full select-none py-2 px-4 h-[50px] bg-blue-500 text-white font-semibold rounded hover:bg-blue-600   transition duration-200">
               Add to Favourites
             </button>
           </div>
