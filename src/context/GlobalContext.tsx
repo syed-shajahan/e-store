@@ -21,9 +21,12 @@ interface AppContextProps {
   addCartList: IpropsHomeData[];
   setaddCartList: React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
   CartTotalPrice: any;
-  DeleteCartItem: (id:number)=>void;
+  DeleteCartItem: (id: number) => void;
   searchfilterData: any;
-  searchSetFilterData: React.Dispatch<any>
+  searchSetFilterData: React.Dispatch<any>;
+  addDetailProduct: IpropsHomeData[];
+  setAddDetailProduct: React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
+  handleAddDetailProduct: (product: IpropsHomeData) => void;
 }
 
 export const AppContext = createContext<AppContextProps | null>(null);
@@ -40,7 +43,10 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
 
   const [addCartList, setaddCartList] = useState<IpropsHomeData[]>([]);
 
-  const [searchfilterData , searchSetFilterData] = useState<any>([])
+  const [searchfilterData, searchSetFilterData] = useState<any>([]);
+  const [addDetailProduct, setAddDetailProduct] = useState<IpropsHomeData[]>(
+    []
+  );
 
   useEffect(() => {
     const homeFectch = async () => {
@@ -64,15 +70,23 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
     setaddCartList((prev) => [...prev, product]);
   };
 
-  const CartTotalPrice = () => {
-    return addCartList.reduce((acc, cartTotal) => acc + cartTotal.price, 0).toFixed(2);
+  const handleAddDetailProduct = (detailData: IpropsHomeData) => {
+    setAddDetailProduct((prev) => [...prev, detailData]);
+    setaddCartList((prev) => [...prev, detailData]);
   };
 
-  const DeleteCartItem =(id:number)=>{
-     const updatedCardList = addCartList.filter((listData)=> listData.id !== id);
-     setaddCartList(updatedCardList)
+  const CartTotalPrice = () => {
+    return addCartList
+      .reduce((acc, cartTotal) => acc + cartTotal.price, 0)
+      .toFixed(2);
+  };
 
-  }
+  const DeleteCartItem = (id: number) => {
+    const updatedCardList = addCartList.filter(
+      (listData) => listData.id !== id
+    );
+    setaddCartList(updatedCardList);
+  };
 
   return (
     <AppContext.Provider
@@ -92,7 +106,10 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
         CartTotalPrice,
         DeleteCartItem,
         searchfilterData,
-        searchSetFilterData
+        searchSetFilterData,
+        addDetailProduct,
+        setAddDetailProduct,
+        handleAddDetailProduct,
       }}
     >
       {children}

@@ -1,24 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AppContext } from "../../context/GlobalContext";
 import { IoMdHeart } from "react-icons/io";
 import { HOME_TITLES } from "../../utils/types/enums";
+import { useSearchParams } from "react-router-dom";
 
 const Home = () => {
   const homeContext = useContext(AppContext);
   if (homeContext === null) {
     throw new Error("useContext must be used within a AppProvider");
   }
-  const { handleAddToCart, searchfilterData } = homeContext;
+  const { handleAddToCart, searchfilterData, addCartList } = homeContext;
 
   const handleHeartClick = (event: React.MouseEvent<SVGElement>) => {
     event.stopPropagation(); //
   };
 
+
+
+  const isProductInCart = (productId: number): boolean => {
+    return addCartList.some((product) => product.id === productId);
+  };
   return (
     <>
       <div className="p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {searchfilterData?.map((products:any) => {
+          {searchfilterData?.map((products: any) => {
+        
             return (
               <div className="bg-white shadow-md rounded-lg overflow-hidden  p-4">
                 <a href={`/details/${products.id}`} className="relative">
@@ -52,7 +59,7 @@ const Home = () => {
                   onClick={() => handleAddToCart(products)}
                   className="rounded-[25px] cr-button w-full h-[50px] font-bold transition-all duration-[0.3s] ease-in-out py-[8px] px-[22px] text-[14px] font-Manrope leading-[1.2] bg-[#2c3749] text-[#fff] border-[1px] border-solid border-[#000] flex items-center uppercase justify-center hover:bg-[#000] hover:border-[#000]"
                 >
-                 {HOME_TITLES.ADD_TO_CART}
+                 {isProductInCart(products.id) ? "Remove from cart" : HOME_TITLES.ADD_TO_CART}
                 </button>
               </div>
             );
