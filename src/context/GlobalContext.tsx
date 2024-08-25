@@ -66,13 +66,33 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
   };
 
   const handleAddToCart = (product: IpropsHomeData) => {
-    console.log("its here ", product);
-    setaddCartList((prev) => [...prev, product]);
+    const productIndex = addCartList.findIndex(
+      (products) => products.id === product.id
+    );
+
+    if (productIndex !== -1) {
+      setaddCartList((prev) =>
+        prev.filter((filterdata) => filterdata.id !== product.id)
+      );
+    } else {
+      setaddCartList((prev) => [...prev, product]);
+    }
   };
 
   const handleAddDetailProduct = (detailData: IpropsHomeData) => {
+    const productIndex = addCartList.findIndex(
+      (product) => product.id === detailData.id
+    );
+
+    if (productIndex !== -1) {
+      setaddCartList((prev) =>
+        prev.filter((product) => product.id !== detailData.id)
+      );
+    } else {
+      setaddCartList((prev) => [...prev, detailData]);
+    }
+
     setAddDetailProduct((prev) => [...prev, detailData]);
-    setaddCartList((prev) => [...prev, detailData]);
   };
 
   const CartTotalPrice = () => {
