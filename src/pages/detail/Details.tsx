@@ -16,14 +16,14 @@ const Details: React.FC = () => {
     loading,
     setLoading,
     addCartList,
-    handleAddDetailProduct,
+    handleAddToCart,
   } = detailContext;
 
   const { id } = useParams<{ id: string }>();
 
   // const [quantity, setQuantity] = useState<number>(0)
 
-  const [Details, setDetails] = useState([])
+  // const [Details, setDetails] = useState([])
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -64,7 +64,7 @@ const Details: React.FC = () => {
             </div> */}
 
             <button
-              onClick={() => handleAddDetailProduct(detailData)}
+              onClick={() => handleAddToCart(detailData)}
               className={`mb-4 rounded-[25px] cr-button w-full h-[50px] font-bold transition-all duration-[0.3s] ease-in-out py-[8px] px-[22px] text-[14px] font-Manrope leading-[1.2] border-[1px] border-solid flex items-center uppercase justify-center ${
                 addCartList &&
                 addCartList.length > 0 &&

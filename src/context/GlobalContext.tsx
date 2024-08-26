@@ -24,9 +24,6 @@ interface AppContextProps {
   DeleteCartItem: (id: number) => void;
   searchfilterData: any;
   searchSetFilterData: React.Dispatch<any>;
-  addDetailProduct: IpropsHomeData[];
-  setAddDetailProduct: React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
-  handleAddDetailProduct: (product: IpropsHomeData) => void;
 }
 
 export const AppContext = createContext<AppContextProps | null>(null);
@@ -44,9 +41,9 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
   const [addCartList, setaddCartList] = useState<IpropsHomeData[]>([]);
 
   const [searchfilterData, searchSetFilterData] = useState<any>([]);
-  const [addDetailProduct, setAddDetailProduct] = useState<IpropsHomeData[]>(
-    []
-  );
+  // const [addDetailProduct, setAddDetailProduct] = useState<IpropsHomeData[]>(
+  //   []
+  // );
 
   useEffect(() => {
     const homeFectch = async () => {
@@ -67,7 +64,8 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
   };
 
   const handleAddToCart = (product: IpropsHomeData) => {
-    const productIndex = addCartList.findIndex(
+    const copyCartList = [...addCartList]
+    const productIndex = copyCartList.findIndex(
       (products) => products.id === product.id
     );
 
@@ -80,22 +78,6 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
     }
   };
 
-  const handleAddDetailProduct = (detailData: IpropsHomeData) => {
-    
-    const productIndex = addCartList.findIndex(
-      (product) => product.id === detailData.id
-    );
-
-    if (productIndex !== -1) {
-      setaddCartList((prev) =>
-        prev.filter((product) => product.id !== detailData.id)
-      );
-    } else {
-      setaddCartList((prev) => [...prev, detailData]);
-    }
-
-    setAddDetailProduct((prev) => [...prev, detailData]);
-  };
 
   const CartTotalPrice = () => {
     return addCartList
@@ -129,9 +111,6 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
         DeleteCartItem,
         searchfilterData,
         searchSetFilterData,
-        addDetailProduct,
-        setAddDetailProduct,
-        handleAddDetailProduct,
       }}
     >
       {children}
