@@ -5,6 +5,10 @@ import React, {
   FC,
   useEffect,
 } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import 'react-toastify/dist/ReactToastify.css';
 import { IpropsHomeData } from "../utils/types/interface";
 
 interface AppContextProps {
@@ -73,8 +77,11 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
       setaddCartList((prev) =>
         prev.filter((filterdata) => filterdata.id !== product.id)
       );
+      toast.error("Removed From cart 😞" );
     } else {
       setaddCartList((prev) => [...prev, product]);
+      toast.success("Added to cart 😊");
+
     }
   };
 
@@ -90,6 +97,7 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
       (listData) => listData.id !== id
     );
     setaddCartList(updatedCardList);
+    toast.error("Removed From cart 😞" );
   };
 
   return (

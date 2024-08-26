@@ -15,7 +15,6 @@ const Home = () => {
     event.stopPropagation(); //
   };
 
-
   return (
     <>
       <div className="p-6">
@@ -62,14 +61,12 @@ const Home = () => {
                       : "bg-[#2c3749] text-[#fff] border-[#000]  hover:border-[#000]"
                   }`}
                 >
-               
-
                   {addCartList &&
                   addCartList.length > 0 &&
                   addCartList.findIndex(
                     (product) => product.id === products.id
                   ) !== -1
-                    ? "Remove from cart"
+                    ? HOME_TITLES.REMOVE_FROM_CART
                     : HOME_TITLES.ADD_TO_CART}
                 </button>
               </div>
