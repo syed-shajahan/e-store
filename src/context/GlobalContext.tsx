@@ -21,9 +21,12 @@ interface AppContextProps {
   addCartList: IpropsHomeData[];
   setaddCartList: React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
   CartTotalPrice: any;
-  DeleteCartItem: (id:number)=>void;
-  searchfilterData: IpropsHomeData[];
-  searchSetFilterData:React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
+  DeleteCartItem: (id: number) => void;
+  searchfilterData: any;
+  searchSetFilterData: React.Dispatch<any>;
+  addDetailProduct: IpropsHomeData[];
+  setAddDetailProduct: React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
+  handleAddDetailProduct: (product: IpropsHomeData) => void;
 }
 
 export const AppContext = createContext<AppContextProps | null>(null);
@@ -40,7 +43,10 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
 
   const [addCartList, setaddCartList] = useState<IpropsHomeData[]>([]);
 
-  const [searchfilterData , searchSetFilterData] = useState<any>([])
+  const [searchfilterData, searchSetFilterData] = useState<any>([]);
+  const [addDetailProduct, setAddDetailProduct] = useState<IpropsHomeData[]>(
+    []
+  );
 
   useEffect(() => {
     const homeFectch = async () => {
@@ -61,19 +67,47 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
   };
 
   const handleAddToCart = (product: IpropsHomeData) => {
-    console.log("its here ", product);
-    setaddCartList((prev) => [...prev, product]);
+    const productIndex = addCartList.findIndex(
+      (products) => products.id === product.id
+    );
+
+    if (productIndex !== -1) {
+      setaddCartList((prev) =>
+        prev.filter((filterdata) => filterdata.id !== product.id)
+      );
+    } else {
+      setaddCartList((prev) => [...prev, product]);
+    }
+  };
+
+  const handleAddDetailProduct = (detailData: IpropsHomeData) => {
+    const productIndex = addCartList.findIndex(
+      (product) => product.id === detailData.id
+    );
+
+    if (productIndex !== -1) {
+      setaddCartList((prev) =>
+        prev.filter((product) => product.id !== detailData.id)
+      );
+    } else {
+      setaddCartList((prev) => [...prev, detailData]);
+    }
+
+    setAddDetailProduct((prev) => [...prev, detailData]);
   };
 
   const CartTotalPrice = () => {
-    return addCartList.reduce((acc, cartTotal) => acc + cartTotal.price, 0).toFixed(2);
+    return addCartList
+      .reduce((acc, cartTotal) => acc + cartTotal.price, 0)
+      .toFixed(2);
   };
 
-  const DeleteCartItem =(id:number)=>{
-     const updatedCardList = addCartList.filter((listData)=> listData.id !== id);
-     setaddCartList(updatedCardList)
-
-  }
+  const DeleteCartItem = (id: number) => {
+    const updatedCardList = addCartList.filter(
+      (listData) => listData.id !== id
+    );
+    setaddCartList(updatedCardList);
+  };
 
   return (
     <AppContext.Provider
@@ -93,7 +127,10 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
         CartTotalPrice,
         DeleteCartItem,
         searchfilterData,
-        searchSetFilterData
+        searchSetFilterData,
+        addDetailProduct,
+        setAddDetailProduct,
+        handleAddDetailProduct,
       }}
     >
       {children}

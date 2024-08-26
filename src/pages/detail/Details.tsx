@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../../context/GlobalContext";
 import { detailsFectch } from "../../utils/api/api";
-import { FaPlusCircle } from "react-icons/fa";
-import { FaCircleMinus } from "react-icons/fa6";
+import { HOME_TITLES } from "../../utils/types/enums";
 
 const Details: React.FC = () => {
 
@@ -11,7 +10,14 @@ const Details: React.FC = () => {
   if (detailContext === null) {
     throw new Error("useContext must be used within a AppProvider");
   }
-  const { detailData, setDetailData, loading, setLoading } = detailContext;
+  const {
+    detailData,
+    setDetailData,
+    loading,
+    setLoading,
+    addCartList,
+    handleAddDetailProduct,
+  } = detailContext;
 
   const { id } = useParams<{ id: string }>();
 
@@ -34,23 +40,10 @@ const Details: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-  const handleInCrement =()=>{
-    setQuantity((prev) => prev + 1)
-  }
-
-  const handleDecrement =()=>{
-    setQuantity((prev) => Math.max(0, prev - 1));
-  }
-
-
-  // const handleDetailAddCart =()=>{
-    
-  // }
-
   return (
     <div className="p-6">
       {detailData ? (
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-[1200px] flex mx-auto">
+        <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-[1200px] lg:flex block mx-auto">
           <img
             src={detailData.image}
             alt={detailData.title}
@@ -71,12 +64,27 @@ const Details: React.FC = () => {
             </div>
 
             <button
-              className="cr-button mb-3 w-full h-[50px] font-bold transition-all duration-[0.3s] ease-in-out py-[8px] px-[22px] text-[14px] font-Manrope capitalize leading-[1.2] bg-[#64b496] text-[#fff] border-[1px] border-solid border-[#64b496] rounded-[5px] flex items-center justify-center hover:bg-[#000] hover:border-[#000] select-none"
+              onClick={() => handleAddDetailProduct(detailData)}
+              className={`mb-4 rounded-[25px] cr-button w-full h-[50px] font-bold transition-all duration-[0.3s] ease-in-out py-[8px] px-[22px] text-[14px] font-Manrope leading-[1.2] border-[1px] border-solid flex items-center uppercase justify-center ${
+                addCartList &&
+                addCartList.length > 0 &&
+                addCartList.findIndex(
+                  (product) => product.id === detailData.id
+                ) !== -1
+                  ? "bg-transparent text-[#000] border-[#000] hover:bg-[#000] hover:text-[#fff]"
+                  : "bg-[#2c3749] text-[#fff] border-[#000] hover:bg-[#000] hover:border-[#000]"
+              }`}
             >
-              ADD TO CART
+              {addCartList &&
+              addCartList.length > 0 &&
+              addCartList.findIndex(
+                (product) => product.id === detailData.id
+              ) !== -1
+                ? "Remove from cart"
+                : HOME_TITLES.ADD_TO_CART}
             </button>
 
-            <button className="w-full select-none py-2 px-4 h-[50px] bg-blue-500 text-white font-semibold rounded hover:bg-blue-600   transition duration-200">
+            <button className="w-full rounded-[25px] py-2 px-4 h-[50px] bg-blue-500 text-white font-semibold  hover:bg-blue-600 transition duration-200">
               Add to Favourites
             </button>
           </div>
