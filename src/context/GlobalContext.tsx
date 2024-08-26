@@ -81,6 +81,7 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
   };
 
   const handleAddDetailProduct = (detailData: IpropsHomeData) => {
+    
     const productIndex = addCartList.findIndex(
       (product) => product.id === detailData.id
     );

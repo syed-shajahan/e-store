@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AppContext } from "../../context/GlobalContext";
 import { IoMdHeart } from "react-icons/io";
 import { HOME_TITLES } from "../../utils/types/enums";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const homeContext = useContext(AppContext);
@@ -22,7 +23,7 @@ const Home = () => {
           {searchfilterData?.map((products: any) => {
             return (
               <div className="bg-white shadow-md rounded-lg overflow-hidden  p-4">
-                <a href={`/details/${products.id}`} className="relative">
+                <Link to={`/details/${products.id}`} className="relative">
                   <img
                     src={products.image}
                     alt="product_images"
@@ -34,7 +35,7 @@ const Home = () => {
                   >
                     <IoMdHeart size={24} color="#ccc" />
                   </div>
-                </a>
+                </Link>
 
                 <div className="mb-5">
                   <h2 className="text-lg font-semibold truncate">
@@ -57,8 +58,8 @@ const Home = () => {
                     addCartList.findIndex(
                       (product) => product.id === products.id
                     ) !== -1
-                      ? "bg-transparent text-[#000] border-[#000] hover:bg-[#000] hover:text-[#fff]"
-                      : "bg-[#2c3749] text-[#fff] border-[#000] hover:bg-[#000] hover:border-[#000]"
+                      ? "bg-transparent text-[#000] border-[#000]"
+                      : "bg-[#2c3749] text-[#fff] border-[#000]  hover:border-[#000]"
                   }`}
                 >
                

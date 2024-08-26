@@ -21,7 +21,7 @@ const Details: React.FC = () => {
 
   const { id } = useParams<{ id: string }>();
 
-  const [quantity, setQuantity] = useState<number>(0)
+  // const [quantity, setQuantity] = useState<number>(0)
 
   const [Details, setDetails] = useState([])
 
@@ -54,14 +54,14 @@ const Details: React.FC = () => {
             <h1 className="text-3xl font-bold mb-2">{detailData.title}</h1>
             <p className="text-gray-600 mb-4">{detailData.category}</p>
             <p className="text-gray-700 mb-4">{detailData.description}</p>
-            <p className="text-2xl font-bold mb-6 select-none">${detailData.price * quantity }</p>
+            <p className="text-2xl font-bold mb-6 select-none">${detailData.price  }</p>
 
 
-            <div className="flex items-center gap-3 mb-3">
+            {/* <div className="flex items-center gap-3 mb-3">
               <FaCircleMinus size={30} className="cursor-pointer hover:scale-[0.90px]" onClick={handleDecrement} />  
               <span className="text-[30px] text-[#000] select-none">{quantity}</span>
               <FaPlusCircle size={30} className="cursor-pointer  hover:scale-[0.90px]" onClick={handleInCrement}  />
-            </div>
+            </div> */}
 
             <button
               onClick={() => handleAddDetailProduct(detailData)}
