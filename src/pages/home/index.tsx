@@ -9,11 +9,8 @@ const Home = () => {
   if (homeContext === null) {
     throw new Error("useContext must be used within a AppProvider");
   }
-  const { handleAddToCart, searchfilterData, addCartList } = homeContext;
-
-  const handleHeartClick = (event: React.MouseEvent<SVGElement>) => {
-    event.stopPropagation(); //
-  };
+  const { handleAddToCart, searchfilterData, addCartList, handleHeartClick , wishList } =
+    homeContext;
 
   return (
     <>
@@ -21,21 +18,23 @@ const Home = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {searchfilterData?.map((products: any) => {
             return (
-              <div className="bg-white shadow-md rounded-lg overflow-hidden  p-4">
-                <Link to={`/details/${products.id}`} className="relative">
+              <div className="bg-white shadow-md rounded-lg overflow-hidden relative mb-4 p-4">
+                <Link
+                  to={`/details/${products.id}`}
+                  className="relative mb-3 block overflow-hidden w-full z-10 pt-[100%]"
+                >
                   <img
                     src={products.image}
                     alt="product_images"
-                    className="w-full h-80 object-contain"
+                    className="w-full h-[100%] absolute block top-0 left-0 object-contain"
                   />
-                  <div
-                    className="absolute right-[10px] top-[10px]"
-                    onClick={(e) => handleHeartClick}
-                  >
-                    <IoMdHeart size={24} color="#ccc" />
-                  </div>
                 </Link>
-
+                <div
+                  className="absolute right-[10px] top-[10px] z-[100] cursor-grab"
+                  onClick={() => handleHeartClick(products)}
+                >
+                  <IoMdHeart size={24}  className={` ${ wishList.findIndex((fav)=> fav.id === products.id) !== -1 ? "text-[pink]" : "text-[#ccc]"   } `} />
+                </div>
                 <div className="mb-5">
                   <h2 className="text-lg font-semibold truncate">
                     {products.title}

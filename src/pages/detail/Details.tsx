@@ -56,7 +56,7 @@ const Details: React.FC = () => {
             <p className="text-gray-700 mb-4">{detailData.description}</p>
             <p className="text-2xl font-bold mb-6 select-none">${detailData.price  }</p>
 
-
+          
             {/* <div className="flex items-center gap-3 mb-3">
               <FaCircleMinus size={30} className="cursor-pointer hover:scale-[0.90px]" onClick={handleDecrement} />  
               <span className="text-[30px] text-[#000] select-none">{quantity}</span>

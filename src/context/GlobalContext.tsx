@@ -5,10 +5,10 @@ import React, {
   FC,
   useEffect,
 } from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { IpropsHomeData } from "../utils/types/interface";
 
 interface AppContextProps {
@@ -28,6 +28,9 @@ interface AppContextProps {
   DeleteCartItem: (id: number) => void;
   searchfilterData: any;
   searchSetFilterData: React.Dispatch<any>;
+  wishList: IpropsHomeData[];
+  setWishList: React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
+  handleHeartClick: (products: IpropsHomeData) => void;
 }
 
 export const AppContext = createContext<AppContextProps | null>(null);
@@ -45,9 +48,8 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
   const [addCartList, setaddCartList] = useState<IpropsHomeData[]>([]);
 
   const [searchfilterData, searchSetFilterData] = useState<any>([]);
-  // const [addDetailProduct, setAddDetailProduct] = useState<IpropsHomeData[]>(
-  //   []
-  // );
+
+  const [wishList, setWishList] = useState<IpropsHomeData[]>([]);
 
   useEffect(() => {
     const homeFectch = async () => {
@@ -55,7 +57,7 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
         const response = await fetch("https://fakestoreapi.com/products");
         const data = await response.json();
         setData(data);
-        searchSetFilterData(data)
+        searchSetFilterData(data);
       } catch (error) {}
     };
     homeFectch();
@@ -68,7 +70,7 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
   };
 
   const handleAddToCart = (product: IpropsHomeData) => {
-    const copyCartList = [...addCartList]
+    const copyCartList = [...addCartList];
     const productIndex = copyCartList.findIndex(
       (products) => products.id === product.id
     );
@@ -77,14 +79,12 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
       setaddCartList((prev) =>
         prev.filter((filterdata) => filterdata.id !== product.id)
       );
-      toast.error("Removed From cart 😞" );
+      toast.error("Removed From cart 😞");
     } else {
       setaddCartList((prev) => [...prev, product]);
       toast.success("Added to cart 😊");
-
     }
   };
-
 
   const CartTotalPrice = () => {
     return addCartList
@@ -97,7 +97,27 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
       (listData) => listData.id !== id
     );
     setaddCartList(updatedCardList);
-    toast.error("Removed From cart 😞" );
+    toast.error("Removed From cart 😞");
+  };
+
+  const handleHeartClick = (products: IpropsHomeData) => {
+    const copyWishList = [...wishList];
+
+    const CheckWishListIndex = copyWishList.findIndex(
+      (data) => data.id === products.id
+    );
+
+    if (CheckWishListIndex !== -1) {
+      setWishList((prev) => prev.filter((datas) => datas.id !== products.id));
+    }
+    else{
+      setWishList((prev) => [...prev, products]);
+      toast.success("Added to WishList ❤️‍🔥");
+    }
+
+
+
+    console.log("testing", wishList);
   };
 
   return (
@@ -119,6 +139,9 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
         DeleteCartItem,
         searchfilterData,
         searchSetFilterData,
+        wishList,
+        setWishList,
+        handleHeartClick,
       }}
     >
       {children}

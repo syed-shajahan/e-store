@@ -14,7 +14,7 @@ const Header: React.FC = () => {
     throw new Error("useContext must be used within a AppProvider");
   }
 
-  const { isOpen, toggleDrawer, addCartList } = HeaderContext;
+  const { isOpen, toggleDrawer, addCartList, wishList } = HeaderContext;
 
   return (
     <header className="bg-white lg:py-4 lg:px-4 px-7 py-4  sticky top-0 z-50">
@@ -33,12 +33,14 @@ const Header: React.FC = () => {
         </div>
 
         <div className="flex items-center justify-between order-[0] lg:order-10">
-          <div className="me-2">
+          <Link to="/wishlist" className="me-2">
             <FaHeartCircleCheck
               className=" text-[25px] cursor-pointer text-[#2c3749] hover:text-[#E91E63]"
               title="Your Wish List"
             />
-          </div>
+
+            {wishList.length}
+          </Link>
           <div className="flex items-center space-x-4 relative">
             <AiOutlineShoppingCart
               onClick={toggleDrawer}

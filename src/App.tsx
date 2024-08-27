@@ -6,6 +6,7 @@ import Home from "./pages/home";
 import Header from "./components/Header";
 import Modal from "./components/Modal";
 import Aside from "./components/Aside";
+import WishList from "./pages/wishlist";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/details/:id" element={<Details />} />
+          <Route path="/wishlist" element={<WishList />} />
         </Routes>
       </div>
     </>
