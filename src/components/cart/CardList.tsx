@@ -12,13 +12,15 @@ const CardList = () => {
         throw new Error("useContext must be used within a AppProvider");
     }
 
-    const { CartTotalPrice , DeleteCartItem , addCartList } = cartListContext;
+    const { CartTotalPrice , DeleteCartItem , addCartList  } = cartListContext;
 
   return (
     <div className="px-4 pb-[60px]">
     <ul className="mt-4 space-y-2">
       <li>
         {addCartList?.map((cartData:any) => {
+          console.log(cartData, "cart");
+          
           return (
             <div className="flex relative mb-3 py-3 pe-[20px] border-b border-solid border-[#EEE]">
               <img
@@ -30,6 +32,7 @@ const CardList = () => {
               <div>
                 <p>{cartData.title}</p>
                 <p>{cartData.price}</p>
+                <p>{cartData.qty}</p>
               </div>
 
               <div className="absolute right-[0px] top-[5px]">

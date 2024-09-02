@@ -31,6 +31,10 @@ interface AppContextProps {
   wishList: IpropsHomeData[];
   setWishList: React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
   handleHeartClick: (products: IpropsHomeData) => void;
+  qty: number;
+  setQty: React.Dispatch<React.SetStateAction<number>>
+  handleInCreaseQuantity: (id:number)=> void;
+  handleDecreaseQuantity: (id:number)=> void;
 }
 
 export const AppContext = createContext<AppContextProps | null>(null);
@@ -50,6 +54,9 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
   const [searchfilterData, searchSetFilterData] = useState<any>([]);
 
   const [wishList, setWishList] = useState<IpropsHomeData[]>([]);
+  
+  const [qty , setQty] = useState<number>(1)
+
 
   useEffect(() => {
     const homeFectch = async () => {
@@ -81,7 +88,7 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
       );
       toast.error("Removed From cart 😞");
     } else {
-      setaddCartList((prev) => [...prev, product]);
+      setaddCartList((prev) => [...prev, {...product, qty: 1}]);
       toast.success("Added to cart 😊");
     }
   };
@@ -114,11 +121,18 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
       setWishList((prev) => [...prev, products]);
       toast.success("Added to WishList ❤️‍🔥");
     }
-
-
-
-    console.log("testing", wishList);
   };
+
+
+  const handleInCreaseQuantity =(id:number)=>{
+    setaddCartList((prev) => [...prev.map((item) => item.id === id ? {...item, qty: (item.qty || 0) + 1} : item)])
+  }
+
+
+  const handleDecreaseQuantity =(id:number)=>{
+    setaddCartList((prev) => [...prev.map((item) => item.id === id ? {...item, qty: (item.qty || 0) - 1} : item)])
+  }
+
 
   return (
     <AppContext.Provider
@@ -142,6 +156,10 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
         wishList,
         setWishList,
         handleHeartClick,
+        qty, 
+        setQty,
+        handleInCreaseQuantity,
+        handleDecreaseQuantity
       }}
     >
       {children}

@@ -7,6 +7,7 @@
     category: string;
     image: string;
     rating: Rating;
+    qty?:number
   }
 
 interface Rating {

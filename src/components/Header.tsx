@@ -39,7 +39,6 @@ const Header: React.FC = () => {
               title="Your Wish List"
             />
 
-            {wishList.length}
           </Link>
           <div className="flex items-center space-x-4 relative">
             <AiOutlineShoppingCart
