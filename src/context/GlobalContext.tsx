@@ -23,7 +23,7 @@ interface AppContextProps {
   toggleDrawer: () => void;
   handleAddToCart: (products: IpropsHomeData) => void;
   addCartList: IpropsHomeData[];
-  setaddCartList: React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
+  setAddCartList: React.Dispatch<React.SetStateAction<IpropsHomeData[]>>;
   CartTotalPrice: any;
   DeleteCartItem: (id: number) => void;
   searchfilterData: any;
@@ -49,14 +49,13 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const [addCartList, setaddCartList] = useState<IpropsHomeData[]>([]);
+  const [addCartList, setAddCartList] = useState<IpropsHomeData[]>([]);
 
   const [searchfilterData, searchSetFilterData] = useState<any>([]);
 
   const [wishList, setWishList] = useState<IpropsHomeData[]>([]);
   
   const [qty , setQty] = useState<number>(1)
-
 
   useEffect(() => {
     const homeFectch = async () => {
@@ -83,12 +82,12 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
     );
 
     if (productIndex !== -1) {
-      setaddCartList((prev) =>
+      setAddCartList((prev) =>
         prev.filter((filterdata) => filterdata.id !== product.id)
       );
       toast.error("Removed From cart 😞");
     } else {
-      setaddCartList((prev) => [...prev, {...product, qty: 1}]);
+      setAddCartList((prev) => [...prev, {...product, qty: 1}]);
       toast.success("Added to cart 😊");
     }
   };
@@ -103,7 +102,7 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
     const updatedCardList = addCartList.filter(
       (listData) => listData.id !== id
     );
-    setaddCartList(updatedCardList);
+    setAddCartList(updatedCardList);
     toast.error("Removed From cart 😞");
   };
 
@@ -125,14 +124,12 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
 
 
   const handleInCreaseQuantity =(id:number)=>{
-    setaddCartList((prev) => [...prev.map((item) => item.id === id ? {...item, qty: (item.qty || 0) + 1} : item)])
+    setAddCartList((prev) => [...prev.map((item) => item.id === id ? {...item, qty: (item.qty || 0) + 1} : item)])
   }
-
 
   const handleDecreaseQuantity =(id:number)=>{
-    setaddCartList((prev) => [...prev.map((item) => item.id === id ? {...item, qty: (item.qty || 0) - 1} : item)])
+    setAddCartList((prev) => [...prev.map((item) => item.id === id ? {...item, qty: (item.qty || 0) - 1} : item)])
   }
-
 
   return (
     <AppContext.Provider
@@ -148,7 +145,7 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
         toggleDrawer,
         handleAddToCart,
         addCartList,
-        setaddCartList,
+        setAddCartList,
         CartTotalPrice,
         DeleteCartItem,
         searchfilterData,

@@ -5,6 +5,7 @@ import { error } from "console";
 import { HOME_TITLES } from "../../utils/types/enums";
 import { IoMdHeart } from "react-icons/io";
 
+
 const WishList = () => {
   const wishContext = useContext(AppContext);
 
@@ -33,10 +34,10 @@ const WishList = () => {
                     />
                   </Link>
                   <div
-                    className="absolute right-[10px] top-[10px] z-[100] cursor-grab"
+                    className="absolute right-[10px] top-[10px] z-[10] cursor-grab"
                     onClick={() => handleHeartClick(products)}
                   >
-                    <IoMdHeart size={24} className={` ${ wishList.findIndex((fav)=> fav.id === products.id) !== -1 ? "text-[pink]" : "text-[#ccc]"   } `} />
+                    <IoMdHeart size={24} className={` ${ wishList.findIndex((fav)=> fav.id === products.id) !== -1 ? "text-[#e91e63]" : "text-[#ccc]"   } `} />
                   </div>
                   <div className="mb-5">
                     <h2 className="text-lg font-semibold truncate">
