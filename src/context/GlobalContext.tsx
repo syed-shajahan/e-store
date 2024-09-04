@@ -87,7 +87,7 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
       );
       toast.error("Removed From cart 😞");
     } else {
-      setAddCartList((prev) => [...prev, {...product, qty: 1}]);
+      setAddCartList((prev) => [...prev, {...product, qty: detailData?.qty || 1}]);
       toast.success("Added to cart 😊");
     }
   };
@@ -124,11 +124,21 @@ const GlobalContext: FC<GlobalContextProps> = ({ children }) => {
 
 
   const handleInCreaseQuantity =(id:number)=>{
+    const isInCart = addCartList.find((cart) => cart.id === id)
+    if(isInCart) {
     setAddCartList((prev) => [...prev.map((item) => item.id === id ? {...item, qty: (item.qty || 0) + 1} : item)])
+    } else {
+      detailData && setDetailData({...detailData, qty: (detailData.qty || 1) + 1})
+    }
   }
 
   const handleDecreaseQuantity =(id:number)=>{
-    setAddCartList((prev) => [...prev.map((item) => item.id === id ? {...item, qty: (item.qty || 0) - 1} : item)])
+    const isInCart = addCartList.find((cart) => cart.id === id)
+    if(isInCart) {
+      setAddCartList((prev) => [...prev.map((item) => item.id === id ? {...item, qty: (item.qty || 0) - 1} : item)])
+    } else {
+      detailData && setDetailData({...detailData, qty: (detailData.qty || 1) - 1})
+    }
   }
 
   return (

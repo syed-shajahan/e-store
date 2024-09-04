@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../context/GlobalContext";
-import { error } from "console";
 import { HOME_TITLES } from "../../utils/types/enums";
 import { IoMdHeart } from "react-icons/io";
 
